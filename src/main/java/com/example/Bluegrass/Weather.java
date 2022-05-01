@@ -4,36 +4,35 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.sql.SQLOutput;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
+import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
-/**
- * Created by Daniel Bojic
- * Date: 2022-04-29
- * Time: 11:31
- * Project: Bluegrass
- * Copyright: MIT
- */
 @Entity
-public class Weather {
+@XmlRootElement(name = "WeatherData")
+@XmlType(name = "", propOrder={"station_id", "station_name" , "timestamp", "temp", "wind_direction", "wind_speed" })
+public class Weather implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
+
     String station_id;
+
     String station_name;
+
     String timestamp;
+
     String temp;
+
     String wind_direction;
+
     String wind_speed;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
+    @XmlSchemaType(name="integer")
+    @XmlElement(name ="StationId")
     public String getStation_id() {
         return station_id;
     }
@@ -42,6 +41,8 @@ public class Weather {
         this.station_id = station_id;
     }
 
+    @XmlSchemaType(name="string")
+    @XmlElement(name ="StationName")
     public String getStation_name() {
         return station_name;
     }
@@ -50,6 +51,8 @@ public class Weather {
         this.station_name = station_name;
     }
 
+    @XmlSchemaType(name="dateTime")
+    @XmlElement(name ="Timestamp")
     public String getTimestamp() {
         return timestamp;
     }
@@ -58,6 +61,9 @@ public class Weather {
         this.timestamp = timestamp;
     }
 
+
+    @XmlSchemaType(name="string")
+    @XmlElement(name ="Temp")
     public String getTemp() {
         return temp;
     }
@@ -66,6 +72,8 @@ public class Weather {
         this.temp = temp;
     }
 
+    @XmlSchemaType(name="string")
+    @XmlElement(name ="WindDirection")
     public String getWind_direction() {
         return wind_direction;
     }
@@ -74,6 +82,8 @@ public class Weather {
         this.wind_direction = wind_direction;
     }
 
+    @XmlSchemaType(name="string")
+    @XmlElement(name ="WindSpeed")
     public String getWind_speed() {
         return wind_speed;
     }
@@ -82,13 +92,22 @@ public class Weather {
         this.wind_speed = wind_speed;
     }
 
+    public Weather() {
+    }
 
-    void print(){
-        System.out.println(getStation_id());
-        System.out.println(getStation_name());
-        System.out.println(getTimestamp());
-        System.out.println(getTemp());
-        System.out.println(getWind_direction());
-        System.out.println(getWind_speed());
+    /**
+     * Prints information from class.
+     */
+    public void print(){
+        System.out.println("-------------------------------------------");
+        System.out.println("Information");
+        System.out.println("-------------------------------------------");
+        System.out.println("StationID: "+getStation_id());
+        System.out.println("StationName: "+getStation_name());
+        System.out.println("Timestamp: "+getTimestamp());
+        System.out.println("Temp: "+getTemp());
+        System.out.println("WindDirection: "+getWind_direction());
+        System.out.println("WindSpeed: "+getWind_speed());
+        System.out.println("-------------------------------------------");
     }
 }
